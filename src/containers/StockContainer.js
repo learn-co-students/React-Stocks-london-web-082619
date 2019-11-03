@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Stock from '../components/Stock'
 
-class StockContainer extends Component {
+class StockContainer extends PureComponent {
 
   render() {
     return (

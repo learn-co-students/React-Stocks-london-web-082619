@@ -1,58 +1,60 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { sortTypes, filterTypes } from "../settings";
 
-const SearchBar = ({setSortType, setFilterType}) => {
+class SearchBar extends PureComponent {
 
-  const handleSortChange = event => {
-    setSortType(event.target.value);
+  render() {
+    return (
+      <div>
+  
+        <strong>Sort by:</strong>
+        <fieldset>
+          <label>
+            <input
+              name="sort-group"
+              type="radio"
+              value={sortTypes.alpha}
+              onChange={this.handleSortChange}
+            />
+            {sortTypes.alpha}
+          </label>
+          <label>
+            <input
+              name="sort-group"
+              type="radio"
+              value={sortTypes.price}
+              onChange={this.handleSortChange}
+            />
+            {sortTypes.price}
+          </label>
+        </fieldset>
+        <br/>
+  
+        <label>
+          <strong>Filter:</strong>
+          <select onChange={this.handleFilterChange}>
+            {this.renderFilterTypes()}
+          </select>
+        </label>
+  
+      </div>
+    );
   }
 
-  const handleFilterChange = event => {
-    setFilterType(event.target.value);
+  handleSortChange = event => {
+    this.props.setSortType(event.target.value);
   }
 
-  const renderFilterTypes = () => {
+  handleFilterChange = event => {
+    this.props.setFilterType(event.target.value);
+  }
+
+  renderFilterTypes = () => {
     return Object.values(filterTypes).map(filterType => {
       return <option key={filterType} value={filterType}>{filterType}</option>
     });
   }
-
-  return (
-    <div>
-
-      <strong>Sort by:</strong>
-      <fieldset>
-        <label>
-          <input
-            name="sort-group"
-            type="radio"
-            value={sortTypes.alpha}
-            onChange={(handleSortChange)}
-          />
-          {sortTypes.alpha}
-        </label>
-        <label>
-          <input
-            name="sort-group"
-            type="radio"
-            value={sortTypes.price}
-            onChange={handleSortChange}
-          />
-          {sortTypes.price}
-        </label>
-      </fieldset>
-      <br/>
-
-      <label>
-        <strong>Filter:</strong>
-        <select onChange={handleFilterChange}>
-          {renderFilterTypes()}
-        </select>
-      </label>
-
-
-    </div>
-  );
+  
 }
 
 SearchBar.defaultProps = {

@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import API from "../adapters/API"
 import { sortTypes, columnHeadings, filterTypes } from "../settings"
 import StockContainer from './StockContainer'
 import SearchBar from '../components/SearchBar'
 
-class MainContainer extends Component {
+class MainContainer extends PureComponent {
   state = {
     stocks: [],
     sortType: sortTypes.default,
