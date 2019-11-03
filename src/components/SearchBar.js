@@ -1,26 +1,50 @@
 import React from 'react';
+import { sortTypes, filterTypes } from "../settings";
 
-const SearchBar = () => {
+const SearchBar = ({sortType, sortStocks, filterStocks}) => {
+
+  const handleSortChange = event => {
+    sortStocks(event.target.value);
+  }
+
+  const handleFilterChange = event => {
+    filterStocks(event.target.value);
+  }
+
+
   return (
     <div>
 
       <strong>Sort by:</strong>
-      <label>
-        <input type="radio" value="Alphabetically" checked={null} onChange={null}/>
-        Alphabetically
-      </label>
-      <label>
-        <input type="radio" value="Price" checked={null} onChange={null}/>
-        Price
-      </label>
+      <fieldset>
+        <label>
+          <input
+            name="sort-group"
+            type="radio"
+            value={sortTypes.alpha}
+            onChange={(handleSortChange)}
+          />
+          {sortTypes.alpha}
+        </label>
+        <label>
+          <input
+            name="sort-group"
+            type="radio"
+            value={sortTypes.price}
+            onChange={handleSortChange}
+          />
+          {sortTypes.price}
+        </label>
+      </fieldset>
       <br/>
 
       <label>
         <strong>Filter:</strong>
-        <select onChange={null}>
-          <option value="Tech">Tech</option>
-          <option value="Sportswear">Sportswear</option>
-          <option value="Finance">Finance</option>
+        <select onChange={handleFilterChange}>
+          <option value={filterTypes.all}>All</option>
+          <option value={filterTypes.tech}>Tech</option>
+          <option value={filterTypes.sportwear}>Sportswear</option>
+          <option value={filterTypes.finance}>Finance</option>
         </select>
       </label>
 
