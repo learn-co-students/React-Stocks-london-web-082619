@@ -1,26 +1,52 @@
 import React from 'react';
+import { sortTypes, filterTypes } from "../settings";
 
-const SearchBar = () => {
+const SearchBar = ({setSortType, setFilterType}) => {
+
+  const handleSortChange = event => {
+    setSortType(event.target.value);
+  }
+
+  const handleFilterChange = event => {
+    setFilterType(event.target.value);
+  }
+
+  const renderFilterTypes = () => {
+    return Object.values(filterTypes).map(filterType => {
+      return <option key={filterType} value={filterType}>{filterType}</option>
+    });
+  }
+
   return (
     <div>
 
       <strong>Sort by:</strong>
-      <label>
-        <input type="radio" value="Alphabetically" checked={null} onChange={null}/>
-        Alphabetically
-      </label>
-      <label>
-        <input type="radio" value="Price" checked={null} onChange={null}/>
-        Price
-      </label>
+      <fieldset>
+        <label>
+          <input
+            name="sort-group"
+            type="radio"
+            value={sortTypes.alpha}
+            onChange={(handleSortChange)}
+          />
+          {sortTypes.alpha}
+        </label>
+        <label>
+          <input
+            name="sort-group"
+            type="radio"
+            value={sortTypes.price}
+            onChange={handleSortChange}
+          />
+          {sortTypes.price}
+        </label>
+      </fieldset>
       <br/>
 
       <label>
         <strong>Filter:</strong>
-        <select onChange={null}>
-          <option value="Tech">Tech</option>
-          <option value="Sportswear">Sportswear</option>
-          <option value="Finance">Finance</option>
+        <select onChange={handleFilterChange}>
+          {renderFilterTypes()}
         </select>
       </label>
 
@@ -29,5 +55,9 @@ const SearchBar = () => {
   );
 }
 
+SearchBar.defaultProps = {
+  setSortType: () => console.error("Missing setSortType callback"),
+  setFilterType: () => console.error("Missing setFilterType callback")
+}
 
 export default SearchBar;
