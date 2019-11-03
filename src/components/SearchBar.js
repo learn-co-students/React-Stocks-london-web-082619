@@ -1,14 +1,14 @@
 import React from 'react';
 import { sortTypes, filterTypes } from "../settings";
 
-const SearchBar = ({sortType, sortStocks, filterStocks}) => {
+const SearchBar = ({sortType, setSortType, setFilterType}) => {
 
   const handleSortChange = event => {
-    sortStocks(event.target.value);
+    setSortType(event.target.value);
   }
 
   const handleFilterChange = event => {
-    filterStocks(event.target.value);
+    setFilterType(event.target.value);
   }
 
 

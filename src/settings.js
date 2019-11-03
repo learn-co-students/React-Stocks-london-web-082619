@@ -1,4 +1,5 @@
 const sortTypes = {
+  default: "Default",
   alpha: "Alphabetically",
   price: "Price"
 }

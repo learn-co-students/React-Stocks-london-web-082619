@@ -8,6 +8,7 @@ import SearchBar from '../components/SearchBar'
 class MainContainer extends Component {
   state = {
     stocks: [],
+    sortType: sortTypes.default,
     filterType: filterTypes.all,
     portfolio: []
   }
@@ -23,8 +24,8 @@ class MainContainer extends Component {
       <div>
         <SearchBar
           sortType={this.state.sortType}
-          sortStocks={this.sortStocks}
-          filterStocks={this.setFilterType}
+          setSortType={this.setSortType}
+          setFilterType={this.setFilterType}
         />
 
           <div className="row">
@@ -32,7 +33,7 @@ class MainContainer extends Component {
 
               <StockContainer
                 heading={columnHeadings.stocks}
-                stocks={this.filterStocks()}
+                stocks={this.filterAndSortStocks()}
                 callback={this.buyStock}
               />
 
@@ -51,35 +52,47 @@ class MainContainer extends Component {
     );
   }
 
-  sortStocks = sortType => {
-    if (sortType === sortTypes.alpha) {
-      this.sortStocksByTicker()
-    } else if (sortType === sortTypes.price) {
-      this.sortStocksByPrice();
+  filterAndSortStocks = () => {
+    const sortedStocks = this.getSortedStocks();
+    const filteredStocks = this.filterStocks(sortedStocks);
+    return filteredStocks;
+  }
+
+  setSortType = sortType => {
+    this.setState({ sortType });
+  }
+
+  getSortedStocks = () => {
+    if (this.state.sortType === sortTypes.default) {
+      return this.state.stocks;
+    } else if (this.state.sortType === sortTypes.alpha) {
+      return this.getStocksByTicker()
+    } else if (this.state.sortType === sortTypes.price) {
+      return this.getStocksByPrice();
     }
   }
 
-  sortStocksByTicker = () => {
-    this.setState({ stocks: [ ...this.state.stocks ].sort((a, b) => {
+  getStocksByTicker = () => {
+    return [ ...this.state.stocks ].sort((a, b) => {
       return (a.ticker).localeCompare(b.ticker);
-    })});
+    });
   }
 
-  sortStocksByPrice = () => {
-    this.setState({ stocks: [ ...this.state.stocks ].sort((a, b) => {
+  getStocksByPrice = () => {
+    return [ ...this.state.stocks ].sort((a, b) => {
       return a.price - b.price;
-    })});
+    });
   }
 
   setFilterType = filterType => {
     this.setState({ filterType })
   }
 
-  filterStocks = () => {
+  filterStocks = stocks => {
     if (this.state.filterType === filterTypes.all) {
-      return this.state.stocks;
+      return stocks;
     } else {
-      return this.state.stocks.filter(stock => {
+      return stocks.filter(stock => {
         return stock.type === this.state.filterType;
       });
     }
