@@ -12,7 +12,7 @@ const columnHeadings = {
 const filterTypes = {
   all: "All",
   tech: "Tech",
-  sportswear: "SportsWear",
+  sportswear: "Sportswear",
   finance: "Finance"
 }
 

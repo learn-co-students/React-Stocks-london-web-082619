@@ -1,7 +1,7 @@
 import React from 'react';
 import { sortTypes, filterTypes } from "../settings";
 
-const SearchBar = ({sortType, setSortType, setFilterType}) => {
+const SearchBar = ({setSortType, setFilterType}) => {
 
   const handleSortChange = event => {
     setSortType(event.target.value);
@@ -11,6 +11,11 @@ const SearchBar = ({sortType, setSortType, setFilterType}) => {
     setFilterType(event.target.value);
   }
 
+  const renderFilterTypes = () => {
+    return Object.values(filterTypes).map(filterType => {
+      return <option key={filterType} value={filterType}>{filterType}</option>
+    });
+  }
 
   return (
     <div>
@@ -41,10 +46,7 @@ const SearchBar = ({sortType, setSortType, setFilterType}) => {
       <label>
         <strong>Filter:</strong>
         <select onChange={handleFilterChange}>
-          <option value={filterTypes.all}>All</option>
-          <option value={filterTypes.tech}>Tech</option>
-          <option value={filterTypes.sportwear}>Sportswear</option>
-          <option value={filterTypes.finance}>Finance</option>
+          {renderFilterTypes()}
         </select>
       </label>
 
@@ -53,5 +55,9 @@ const SearchBar = ({sortType, setSortType, setFilterType}) => {
   );
 }
 
+SearchBar.defaultProps = {
+  setSortType: () => console.error("Missing setSortType callback"),
+  setFilterType: () => console.error("Missing setFilterType callback")
+}
 
 export default SearchBar;

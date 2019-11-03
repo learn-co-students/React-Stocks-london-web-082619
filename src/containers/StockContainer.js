@@ -22,4 +22,10 @@ class StockContainer extends Component {
 
 }
 
+StockContainer.defaultProps = {
+  heading: "No heading found",
+  stocks: [],
+  callback: () => console.error("Missing stock callback")
+}
+
 export default StockContainer;

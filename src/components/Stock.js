@@ -13,4 +13,12 @@ const Stock = ({stock, callback}) => {
   );
 }
 
+Stock.defaultProps = {
+  stock: {
+    name: "Stock name not found",
+    price: "Stock price not found"
+  },
+  callback: () => console.error("Missing stock callback")
+}
+
 export default Stock

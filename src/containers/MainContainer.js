@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import API from "../adapters/API"
 import { sortTypes, columnHeadings, filterTypes } from "../settings"
 import StockContainer from './StockContainer'
-import PortfolioContainer from './PortfolioContainer'
 import SearchBar from '../components/SearchBar'
 
 class MainContainer extends Component {
@@ -23,7 +22,6 @@ class MainContainer extends Component {
     return (
       <div>
         <SearchBar
-          sortType={this.state.sortType}
           setSortType={this.setSortType}
           setFilterType={this.setFilterType}
         />
